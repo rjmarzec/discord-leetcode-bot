@@ -48,7 +48,7 @@ ROLE_NAME=LC Friday Enjoyer (or your own role name to ping)
 ├── commands.js        # Command handlers
 ├── services/
 │   ├── leetcode.js    # LeetCode API service
-│   ├── message.js     # Message formatting service
+│   ├── message.js     # Message sending/formatting service
 │   └── scheduler.js   # Cron job scheduler
 └── package.json       # Project dependencies
 ```
