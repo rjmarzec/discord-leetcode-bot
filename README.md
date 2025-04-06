@@ -14,6 +14,7 @@ A Discord bot that sends random LeetCode problem links every Friday at 5PM and p
 
 - [ ] Based on message reaction, keep track of leaderboard
 - [ ] Implement problem history to avoid repetition
+- [ ] Command to display the leaderboard: `!leaderboard`
 - [ ] Host this somewhere (rasberry pi?)
 
 
@@ -46,6 +47,7 @@ ROLE_NAME=LC Friday Enjoyer (or your own role name to ping)
 ├── bot.js             # Discord client setup
 ├── config.js          # Configuration settings
 ├── commands.js        # Command handlers
+├── reactions.js       # Reaction handlers
 ├── services/
 │   ├── leetcode.js    # LeetCode API service
 │   ├── message.js     # Message sending/formatting service

@@ -18,15 +18,24 @@ async function handleLeetCodeCommand(message) {
 }
 
 /**
- * Command handler for the !lchelp command
+ * Command handler for the !help command
  */
 function handleHelpCommand(message) {
   message.channel.send(
     '**LeetCode Bot Commands:**\n' +
-    '`!leetcode` - Get a random LeetCode problem\n' +
     '`!help` - Display help information\n\n' +
+    '`!leetcode` - Get a random LeetCode problem\n' +
+    '`!leaderboard` - Display the leaderboard (coming soon!)\n' +
     'The bot automatically posts a problem every Friday at 5PM and pings the "LC Friday Enjoyer" role.'
   );
+}
+
+/**
+ * Command handler for the !leaderboard command
+ */
+function handleLeaderboardCommand(message) {
+  // TODO: Implement leaderboard display
+  message.channel.send('Leaderboard feature is coming soon.');
 }
 
 /**
@@ -43,6 +52,8 @@ function registerCommandHandlers(client) {
       await handleLeetCodeCommand(message);
     } else if (message.content === '!help') {
       handleHelpCommand(message);
+    } else if (message.content === '!leaderboard') {
+      handleLeaderboardCommand(message);
     }
   });
   

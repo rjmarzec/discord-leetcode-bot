@@ -2,6 +2,7 @@
 const { client } = require('./bot');
 const { setupCronJob } = require('./services/scheduler');
 const { registerCommandHandlers } = require('./commands');
+const { registerReactionHandlers } = require('./reactions');
 require('dotenv').config();
 
 // When the client is ready, run this code
@@ -14,6 +15,9 @@ client.once('ready', () => {
 
 // Register message command handlers
 registerCommandHandlers(client);
+
+// Register message reaction handlers
+registerReactionHandlers(client);
 
 // Log in to Discord with token
 client.login(process.env.DISCORD_TOKEN);
