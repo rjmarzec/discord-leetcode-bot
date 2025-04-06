@@ -1,4 +1,4 @@
-# LeetCode Discord Bot
+# Discord Leetcode Bot
 
 A Discord bot that sends random LeetCode problem links every Friday at 5PM and provides on-demand problems with the `!leetcode` command.
 
