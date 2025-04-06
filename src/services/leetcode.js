@@ -1,6 +1,6 @@
 // LeetCode API service for fetching problems
-const axios = require('axios');
-const { LEETCODE_API } = require('../config');
+const axios = require('axios')
+const { LEETCODE_API } = require('../config')
 
 /**
  * Fetches a random free problem from LeetCode using GraphQL API
@@ -38,56 +38,56 @@ async function getRandomLeetCodeProblem() {
           }
         }
       }
-    `;
+    `
 
     // Headers for the request
     const headers = {
       'Content-Type': 'application/json'
-    };
+    }
 
     // Make API request
     const response = await axios.post(
-      LEETCODE_API, 
+      LEETCODE_API,
       {
         query,
         variables: {
-          categorySlug: "",
+          categorySlug: '',
           skip: 0,
           limit: 100,
           filters: {}
         }
       },
       { headers }
-    );
+    )
 
     // Validate response
     if (!response.data?.data?.problemsetQuestionList) {
-      console.log('Unexpected response structure:', response.data);
-      throw new Error('Invalid response structure');
+      console.log('Unexpected response structure:', response.data)
+      throw new Error('Invalid response structure')
     }
 
     // Extract questions from response
-    const questions = response.data.data.problemsetQuestionList.questions;
+    const questions = response.data.data.problemsetQuestionList.questions
     if (!questions || questions.length === 0) {
-      throw new Error('No questions returned');
+      throw new Error('No questions returned')
     }
-    
+
     // Filter out paid-only problems
-    const freeQuestions = questions.filter(q => !q.paidOnly);
+    const freeQuestions = questions.filter((q) => !q.paidOnly)
     if (freeQuestions.length === 0) {
-      throw new Error('No free questions available');
+      throw new Error('No free questions available')
     }
-    
+
     // Select a random problem
-    const randomIndex = Math.floor(Math.random() * freeQuestions.length);
-    return freeQuestions[randomIndex];
+    const randomIndex = Math.floor(Math.random() * freeQuestions.length)
+    return freeQuestions[randomIndex]
   } catch (error) {
-    console.error('Error fetching LeetCode problem:', error);
-    console.error('Error response:', error.response?.data);
-    throw error;
+    console.error('Error fetching LeetCode problem:', error)
+    console.error('Error response:', error.response?.data)
+    throw error
   }
 }
 
 module.exports = {
   getRandomLeetCodeProblem
-};
+}

@@ -1,5 +1,5 @@
 // Discord client configuration
-const { Client, GatewayIntentBits, Partials } = require('discord.js');
+const { Client, GatewayIntentBits, Partials } = require('discord.js')
 
 // Create a new Discord client with required intents
 const client = new Client({
@@ -7,13 +7,9 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildMessageReactions,
-    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.MessageContent
   ],
-  partials: [
-    Partials.Message,
-    Partials.Channel,
-    Partials.Reaction,
-  ],
-});
+  partials: [Partials.Message, Partials.Channel, Partials.Reaction]
+})
 
-module.exports = { client };
+module.exports = { client }

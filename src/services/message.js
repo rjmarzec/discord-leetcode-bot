@@ -1,7 +1,7 @@
 // Message formatting service for Discord messages
-const { EmbedBuilder } = require('discord.js');
-const { COLORS, ROLE_NAME } = require('../config');
-const { client } = require('../bot');
+const { EmbedBuilder } = require('discord.js')
+const { COLORS, ROLE_NAME } = require('../config')
+const { client } = require('../bot')
 
 /**
  * Find role ID by name in a guild
@@ -10,8 +10,8 @@ const { client } = require('../bot');
  * @returns {String|null} Role ID or null if not found
  */
 function findRoleId(guild, roleName) {
-  const role = guild.roles.cache.find(r => r.name === roleName);
-  return role ? role.id : null;
+  const role = guild.roles.cache.find((r) => r.name === roleName)
+  return role ? role.id : null
 }
 
 /**
@@ -21,37 +21,44 @@ function findRoleId(guild, roleName) {
  */
 function createProblemEmbed(problem) {
   // Determine color based on difficulty
-  let difficultyColor;
+  let difficultyColor
   switch (problem.difficulty) {
     case 'Easy':
-      difficultyColor = COLORS.EASY;
-      break;
+      difficultyColor = COLORS.EASY
+      break
     case 'Medium':
-      difficultyColor = COLORS.MEDIUM;
-      break;
+      difficultyColor = COLORS.MEDIUM
+      break
     case 'Hard':
-      difficultyColor = COLORS.HARD;
-      break;
+      difficultyColor = COLORS.HARD
+      break
     default:
-      difficultyColor = COLORS.DEFAULT;
+      difficultyColor = COLORS.DEFAULT
   }
 
   // Create embed
   const embed = new EmbedBuilder()
-    .setTitle(`LeetCode Problem #${problem.frontendQuestionId}: ${problem.title}`)
+    .setTitle(
+      `LeetCode Problem #${problem.frontendQuestionId}: ${problem.title}`
+    )
     .setURL(`https://leetcode.com/problems/${problem.titleSlug}`)
     .setColor(difficultyColor)
-    .setDescription(`**Difficulty:** ${problem.difficulty}\n**Acceptance Rate:** ${Math.round(problem.acRate * 10) / 10}%`)
+    .setDescription(
+      `**Difficulty:** ${problem.difficulty}\n**Acceptance Rate:** ${Math.round(problem.acRate * 10) / 10}%`
+    )
     .setFooter({ text: '🧠 Weekly LeetCode Challenge! 🧠' })
-    .setTimestamp();
+    .setTimestamp()
 
   // Add topics if available
   if (problem.topicTags && problem.topicTags.length > 0) {
-    const topics = problem.topicTags.map(tag => tag.name).slice(0, 5).join(', ');
-    embed.addFields({ name: 'Topics', value: topics });
+    const topics = problem.topicTags
+      .map((tag) => tag.name)
+      .slice(0, 5)
+      .join(', ')
+    embed.addFields({ name: 'Topics', value: topics })
   }
 
-  return embed;
+  return embed
 }
 
 /**
@@ -62,30 +69,30 @@ function createProblemEmbed(problem) {
  */
 async function sendProblemToChannel(channelId, problem, weekly = false) {
   try {
-    const channel = client.channels.cache.get(channelId);
+    const channel = client.channels.cache.get(channelId)
     if (!channel) {
-      console.error(`Channel with ID ${channelId} not found`);
-      return;
+      console.error(`Channel with ID ${channelId} not found`)
+      return
     }
 
     // Find role to ping
-    const roleId = findRoleId(channel.guild, ROLE_NAME);
-    const roleMention = roleId ? `<@&${roleId}> ` : '';
-    
+    const roleId = findRoleId(channel.guild, ROLE_NAME)
+    const roleMention = roleId ? `<@&${roleId}> ` : ''
+
     // Create embed
-    const embed = createProblemEmbed(problem);
-    
+    const embed = createProblemEmbed(problem)
+
     // Generate message content based on whether it's the weekly scheduled message
-    const content = weekly 
+    const content = weekly
       ? `${roleMention}📝 **It's LeetCode Friday!** Here's your problem for this week:`
-      : `Here's a random LeetCode problem:`;
-    
+      : `Here's a random LeetCode problem:`
+
     // Send message
-    await channel.send({ content, embeds: [embed] });
-    console.log(`Sent problem "${problem.title}" to channel ${channelId}`);
+    await channel.send({ content, embeds: [embed] })
+    console.log(`Sent problem "${problem.title}" to channel ${channelId}`)
   } catch (error) {
-    console.error('Error sending problem to channel:', error);
-    throw error;
+    console.error('Error sending problem to channel:', error)
+    throw error
   }
 }
 
@@ -95,16 +102,18 @@ async function sendProblemToChannel(channelId, problem, weekly = false) {
  */
 async function sendErrorMessage(channelId) {
   try {
-    const channel = client.channels.cache.get(channelId);
+    const channel = client.channels.cache.get(channelId)
     if (channel) {
-      await channel.send('❌ There was an error fetching a LeetCode problem. Please try again later or contact Kichul.');
+      await channel.send(
+        '❌ There was an error fetching a LeetCode problem. Please try again later or contact Kichul.'
+      )
     }
   } catch (error) {
-    console.error('Failed to send error message:', error);
+    console.error('Failed to send error message:', error)
   }
 }
 
 module.exports = {
   sendProblemToChannel,
   sendErrorMessage
-};
+}
