@@ -1,6 +1,7 @@
 // commands/leaderboard.js
 const { EmbedBuilder } = require('discord.js')
 const supabaseService = require('../services/supabase')
+const { COLORS } = require('../config')
 
 /**
  * Generate medal emoji based on position
@@ -57,7 +58,7 @@ async function handleLeaderboardCommand(message, args) {
 
     const embed = new EmbedBuilder()
       .setTitle('🏆 LeetCode Leaderboard 🏆')
-      .setColor('#0099ff')
+      .setColor(COLORS.DEFAULT)
       .setDescription(`Top problem solvers in ${message.guild.name}`)
       .setTimestamp()
 
@@ -104,7 +105,7 @@ async function handlePersonalStats(message) {
 
     const embed = new EmbedBuilder()
       .setTitle(`${message.author.username}'s LeetCode Stats`)
-      .setColor('#0099ff')
+      .setColor(COLORS.DEFAULT)
       .setThumbnail(message.author.displayAvatarURL())
       .addFields(
         {
