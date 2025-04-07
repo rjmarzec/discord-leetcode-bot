@@ -1,6 +1,7 @@
 // LeetCode API service for fetching problems
 const axios = require('axios')
 const { LEETCODE_API } = require('../config')
+const { getAllProblems } = require('./supabase')
 
 /**
  * Fetches a random free problem from LeetCode using GraphQL API
@@ -88,6 +89,40 @@ async function getRandomLeetCodeProblem() {
   }
 }
 
+/**
+ * Fetches a random unsolved free problem from LeetCode
+ * @returns {Promise<Object>} A random unsolved LeetCode problem
+ */
+async function getRandomUnsolvedProblem() {
+  try {
+    // Get all solved problem IDs from the database
+    const solvedProblems = await getAllProblems()
+    const solvedProblemIds = new Set(solvedProblems.map((p) => p.problemid))
+
+    // Try up to 5 times to find an unsolved problem
+    for (let attempt = 0; attempt < 5; attempt++) {
+      const problem = await getRandomLeetCodeProblem()
+
+      // Check if this problem has been solved already
+      if (!solvedProblemIds.has(problem.frontendQuestionId)) {
+        console.log('found a problem: ', problem)
+        return problem
+      }
+
+      console.log(
+        `Problem ${problem.frontendQuestionId} ${problem.titleSlug} already solved, trying again...`
+      )
+    }
+
+    throw new Error(
+      'Could not find an unsolved problem after multiple attempts'
+    )
+  } catch (error) {
+    console.error('Error fetching unsolved LeetCode problem:', error)
+    throw error
+  }
+}
+
 module.exports = {
-  getRandomLeetCodeProblem
+  getRandomUnsolvedProblem
 }

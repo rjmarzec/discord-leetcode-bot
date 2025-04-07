@@ -1,6 +1,6 @@
 // Scheduler service for cron jobs
 const cron = require('node-cron')
-const { getRandomLeetCodeProblem } = require('./leetcode')
+const { getRandomUnsolvedProblem } = require('./leetcode')
 const { sendProblemToChannel, sendErrorMessage } = require('./message')
 const { CHANNEL_ID } = require('../config')
 
@@ -13,7 +13,7 @@ function setupCronJob() {
     console.log("It's Friday at 5PM! Sending a LeetCode problem...")
 
     try {
-      const problem = await getRandomLeetCodeProblem()
+      const problem = await getRandomUnsolvedProblem()
       await sendProblemToChannel(CHANNEL_ID, problem, true)
     } catch (error) {
       console.error('Error in scheduled job:', error)

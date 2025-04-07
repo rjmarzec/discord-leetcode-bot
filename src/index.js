@@ -1,7 +1,7 @@
 // Main entry point for the LeetCode Discord bot
 const { client } = require('./bot')
 const { setupCronJob } = require('./services/scheduler')
-const { registerCommandHandlers } = require('./commands')
+const { registerCommandHandlers } = require('./commands/commands')
 const { registerReactionHandlers } = require('./reactions')
 require('dotenv').config()
 

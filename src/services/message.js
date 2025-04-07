@@ -38,9 +38,7 @@ function createProblemEmbed(problem) {
 
   // Create embed
   const embed = new EmbedBuilder()
-    .setTitle(
-      `LeetCode Problem #${problem.frontendQuestionId}: ${problem.title}`
-    )
+    .setTitle(`#${problem.frontendQuestionId}: ${problem.title}`)
     .setURL(`https://leetcode.com/problems/${problem.titleSlug}`)
     .setColor(difficultyColor)
     .setDescription(
