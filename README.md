@@ -12,7 +12,7 @@ A Discord bot that sends random LeetCode problem links every Friday at 5PM and p
 
 ## TODO
 
-- [ ] Based on message reaction, keep track of leaderboard
+- [x] Based on message reaction, keep track of leaderboard
 - [ ] Implement problem history to avoid repetition
 - [ ] Command to display the leaderboard: `!leaderboard`
 - [ ] Host this somewhere (rasberry pi?)
@@ -95,11 +95,10 @@ The following tables are used to track users, problems, and solved problems in t
 
 | Column    | Type                                                 | Description                                           |
 | --------- | ---------------------------------------------------- | ----------------------------------------------------- |
-| id        | `SERIAL PRIMARY KEY`                                 | Unique identifier for each entry                      |
+| id        | `SERIAL PRIMARY KEY`                                 | Unique identifier for each entry (Supabase generated) |
 | userid    | `TEXT NOT NULL REFERENCES users(userid)`             | References `users(userid)`                            |
 | problemid | `TEXT NOT NULL REFERENCES problems(problemid)`       | References `problems(problemid)`                      |
 | solvedat  | `TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP` | Solved timestamp                                      |
-| Unique    | `(userid, problemid)`                                | Ensures each user marks a problem as solved only once |
 
 ### Indexes
 
