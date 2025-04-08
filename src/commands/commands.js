@@ -2,6 +2,7 @@
 const { handleHelpCommand } = require('./help')
 const { handleLeaderboardCommand } = require('./leaderboard')
 const { handleProblemCommand } = require('./problem')
+const { handlePingCommand } = require('./ping')
 
 /**
  * Process commands from messages
@@ -26,6 +27,9 @@ async function processCommands(message) {
       break
     case 'help':
       await handleHelpCommand(message)
+      break
+    case 'ping':
+      await handlePingCommand(message)
       break
     default:
       // Ignore unrecognized commands
