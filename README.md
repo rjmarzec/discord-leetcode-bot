@@ -5,24 +5,21 @@ A Discord bot that sends random LeetCode problem links every Friday at 5PM and p
 ## Features
 
 - 📅 Automatically posts a random LeetCode problem every Friday at 5PM
-- 🎯 On-demand problem fetching with `!leetcode` command
+- 🎯 On-demand problem fetching with `!problem` command
 - 🎨 Cool embeds with problem details and difficulty color coding
 - 🏷️ Role pinging for notifications
 - 💰 Filters out premium-only problems
-
-## TODO
-
-- [x] Based on message reaction, keep track of leaderboard
-- [x] Implement problem history to avoid repetition
-- [x] Command to display the leaderboard: `!leaderboard`
-- [ ] Host this somewhere (rasberry pi?)
+- 🏆 Leaderboard tracking based on message reactions
+- 🕑 Problem history to avoid repetition
+- 📊 `!leaderboard` command to display current rankings
+- ☁️ Hosted on AWS EC2 for 24/7 uptime
 
 ## Setup Instructions
 
 1. Clone this repository
 2. Install dependencies with `npm install`
 3. Copy `.env.example` to `.env` and fill in your Discord bot token and channel ID
-4. Start the bot with `npm start`
+4. Start the bot with `node index.js`
 
 ## Environment Variables
 
@@ -41,6 +38,7 @@ SUPABASE_ANON_KEY=your-supabase-anon-key
 
 ## Commands
 
+- `!ping` - Display server latency
 - `!help` - Display help information
 - `!problem` - Get a random LeetCode problem
 - `!leaderboard` - Show the server's leaderboard
@@ -57,11 +55,13 @@ SUPABASE_ANON_KEY=your-supabase-anon-key
 │   ├── commands.js    # Command handlers
 │   ├── help.js        # Help command handler
 |   |── leaderboard.js # Leaderboard command handler
+│   ├── ping.js        # Ping command handler
 |   └── problem.js     # Problem command handler
 ├── services/
 │   ├── leetcode.js    # LeetCode API service
 │   ├── message.js     # Message sending/formatting service
-│   └── scheduler.js   # Cron job scheduler
+│   ├── scheduler.js   # Cron job scheduler
+│   └── supabase.js    # Supabase databasse service
 └── package.json       # Project dependencies
 ```
 
