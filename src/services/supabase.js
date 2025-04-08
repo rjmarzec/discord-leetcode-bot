@@ -1,6 +1,6 @@
 // Supabase service for Supabase connection
 const { createClient } = require('@supabase/supabase-js')
-require('dotenv').config()
+require('dotenv').config({ path: require('find-config')('.env')})
 
 // Initialize Supabase client
 const supabase = createClient(
