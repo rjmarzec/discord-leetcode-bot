@@ -15,7 +15,7 @@ A Discord bot that sends random LeetCode problem links every Friday at 5PM and p
 - [x] Based on message reaction, keep track of leaderboard
 - [x] Implement problem history to avoid repetition
 - [x] Command to display the leaderboard: `!leaderboard`
-- [ ] Host this somewhere (rasberry pi?)
+- [x] Host this somewhere (EC2)
 
 ## Setup Instructions
 
