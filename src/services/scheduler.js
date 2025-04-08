@@ -2,24 +2,30 @@
 const cron = require('node-cron')
 const { getRandomUnsolvedProblem } = require('./leetcode')
 const { sendProblemToChannel, sendErrorMessage } = require('./message')
-const { CHANNEL_ID } = require('../config')
+const { CHANNEL_ID, TIMEZONE } = require('../config')
 
 /**
  * Sets up the cron job to run every Friday at 5PM
  */
 function setupCronJob() {
   // Format: second minute hour day-of-month month day-of-week
-  cron.schedule('0 0 17 * * 5', async () => {
-    console.log("It's Friday at 5PM! Sending a LeetCode problem...")
+  cron.schedule(
+    '0 0 17 * * 5',
+    async () => {
+      console.log("It's Friday at 5PM! Sending a LeetCode problem...")
 
-    try {
-      const problem = await getRandomUnsolvedProblem()
-      await sendProblemToChannel(CHANNEL_ID, problem, true)
-    } catch (error) {
-      console.error('Error in scheduled job:', error)
-      await sendErrorMessage(CHANNEL_ID)
+      try {
+        const problem = await getRandomUnsolvedProblem()
+        await sendProblemToChannel(CHANNEL_ID, problem, true)
+      } catch (error) {
+        console.error('Error in scheduled job:', error)
+        await sendErrorMessage(CHANNEL_ID)
+      }
+    },
+    {
+      timezone: TIMEZONE
     }
-  })
+  )
 
   console.log('Scheduled weekly LeetCode problem for Fridays at 5PM')
 }

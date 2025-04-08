@@ -16,5 +16,8 @@ module.exports = {
     MEDIUM: '#ffc01e', // Yellow
     HARD: '#ff375f', // Red
     DEFAULT: '#0088cc' // Blue
-  }
+  },
+
+  // Timezone for the scheduler
+  TIMEZONE: 'America/Los_Angeles'
 }
